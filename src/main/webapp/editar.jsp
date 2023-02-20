@@ -24,7 +24,7 @@
 					<h3>Editar</h3>
 				</div>
 				<div class="card-body">
-					<form action="UsuarioUpdate" method="POST">
+					<form action="UsuarioUpdate" method="POST" onsubmit="return validarForm()" id="form_cad">
 						<div class="input-group form-group">
 							<input type="text" id="id" class="form-control"
 								placeholder="Id" name="id" value="<c:out value='${pessoa.id}' />" readonly>
@@ -96,9 +96,4 @@
 		</div>
 	</div>
 </body>
-<style>
-.card {
-	height: 790px;
-}
-</style>
 </html>

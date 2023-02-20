@@ -34,11 +34,15 @@ function senhaValida(senha) {
   let auxNumero = 0;
   let auxEspecial = 0;
 
-  if (senha_valeu.length > 14)
-    return alert("Senha invalida! Senhas devem conter entre 8-14 caracteres e ao menos uma letra, número e caractere especial.");
+  if (senha_valeu.length > 14){
+    alert("Senha invalida! Senhas devem conter entre 8-14 caracteres e ao menos uma letra, número e caractere especial.");
+    return false;
+  }
 
-  if (senha_valeu.length < 8)
-    return alert("Senha invalida! Senhas devem conter entre 8-14 caracteres e ao menos uma letra, número e caractere especial.");
+  if (senha_valeu.length < 8){
+    alert("Senha invalida! Senhas devem conter entre 8-14 caracteres e ao menos uma letra, número e caractere especial.");
+    return false;
+  }
 
   for (let i = 0; i < senha_valeu.length; i++) {
     if (letrasMaiusculas.test(senha_valeu[i]))

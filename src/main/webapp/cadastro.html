@@ -5,14 +5,11 @@
 
 	<!--Bootsrap 4 CDN-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-	<!--Fontawesome CDN-->
-	<link rel="stylesheet"
-		href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-		crossorigin="anonymous">
-
+  <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	
 	<script type="text/javascript" src="./assets/javascript/script.js"></script>
 	<link rel="stylesheet" href="./assets/stylesheet/cad_edit_style.css" />
 </head>
@@ -24,7 +21,7 @@
 					<h3>Cadastro</h3>
 				</div>
 				<div class="card-body">
-					<form action="UsuarioCadastro" method="POST" onsubmit="return validarForm()">
+					<form action="UsuarioCadastro" method="POST" onsubmit="return validarForm()" id="form_cad">
 						<div class="input-group form-group">
 							<input type="text" id="nome" class="form-control"
 								placeholder="Nome" name="nome" required>
@@ -87,9 +84,4 @@
 		</div>
 	</div>
 </body>
-<style>
-.card {
-	height: 790px;
-}
-</style>
 </html>
