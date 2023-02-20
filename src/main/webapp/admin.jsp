@@ -8,7 +8,6 @@
     <title>Felipe JR</title>
     <link rel="stylesheet" href="./assets/stylesheet/reset.css" />
     <link rel="stylesheet" href="./assets/stylesheet/style.css" />
-    <script type="text/javascript" src="./assets/javascript/script.js"></script>
 </head>
 
 <body>

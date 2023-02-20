@@ -1,64 +1,103 @@
-//Função para adicionar uma nova linha na tabela
-function addToTable() {
-
-    //Definindo as variaveis e recebendo os dados
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let telefone = document.getElementById('telefone').value;
-    let cep = document.getElementById('cep').value;
-    let cidade = document.getElementById('cidade').value;
-    let bairro = document.getElementById('bairro').value;
-    let uf = document.getElementById('uf').value;
-    let table = document.getElementById("myTable");
-
-    let tableSize = table.rows.length; //Calculando o tamanho da Tabela
-    let row = table.insertRow(tableSize); //Inserindo uma linha abaixo da Tabela
-    let cell1 = row.insertCell(0); //Inserindo as celulas da linha
-    let cell2 = row.insertCell(1);
-    let cell3 = row.insertCell(2);
-    let cell4 = row.insertCell(3);
-    let cell5 = row.insertCell(4);
-    let cell6 = row.insertCell(5);
-    let cell7 = row.insertCell(6);
-    let cell8 = row.insertCell(7);
-    let cell9 = row.insertCell(8);
-    row.id = tableSize; //Adicionando o id no elemento a ser criado
-
-    //Criando o codigo do botão para remover a linha
-    let btnCode = "<button class='remove-btn' onclick='removeToTable(this)'>Remover</button>";
-
-    //Preenchendo as celulas da linha
-    cell1.innerHTML = tableSize;
-    cell2.innerHTML = name;
-    cell3.innerHTML = email;
-    cell4.innerHTML = telefone;
-    cell5.innerHTML = cep;
-    cell6.innerHTML = cidade;
-    cell7.innerHTML = bairro;
-    cell8.innerHTML = uf;
-    cell9.innerHTML = btnCode;
-
-    //Limpando os campos de inserção de dados
-    document.getElementById('name').value = "";
-    document.getElementById('email').value = "";
-    document.getElementById('telefone').value = "";
-    document.getElementById('cep').value = "";
-    document.getElementById('cidade').value = "";
-    document.getElementById('bairro').value = "";
-    document.getElementById('uf').value = "";
-
-
-    //Retornando 'false' para impedir o reload da pagina
+function validarEmail(email) {
+  let email_regex = /\S+@\S+\.\S+/;
+  if (email_regex.test(email.value)) {
+    return true;
+  } else{
+    alert("E-mail invalido!");
     return false;
+  }
 }
 
-//Função para remover uma linha
-function removeToTable(id){
+function mascararCep(cep) {
+  cep.value = cep.value.replace(/\D/g, "");
+  return cep.value = cep.value.replace(/^(\d{5})(\d)/, "$1-$2");
+}
 
-    let row = id.parentNode.parentNode.id; //Pegando o id do avô do botão
-    row = document.getElementById(row); //Recebendo o elemento da linha pelo ID
-    row.parentNode.removeChild(row); //Removendo a linha
-
-    //Retornando 'false' para impedir o reload da pagina
+function validarUf(uf) {
+  let ufRegex = /^(\s*(AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO)?)$/;
+  if (ufRegex.test(uf.value.toUpperCase())) {
+    return true;
+  } else{
+    alert("UF invalido!");
     return false;
+  }
+}
+
+function senhaValida(senha) {
+  let senha_valeu = senha.value;
+  let letrasMaiusculas = /[A-Z]/;
+  let letrasMinusculas = /[a-z]/;
+  let numeros = /[0-9]/;
+  let caracteresEspeciais = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
+  let auxMaiuscula = 0;
+  let auxMinuscula = 0;
+  let auxNumero = 0;
+  let auxEspecial = 0;
+
+  if (senha_valeu.length > 14)
+    return alert("Senha invalida! Senhas devem conter entre 8-14 caracteres e ao menos uma letra, número e caractere especial.");
+
+  if (senha_valeu.length < 8)
+    return alert("Senha invalida! Senhas devem conter entre 8-14 caracteres e ao menos uma letra, número e caractere especial.");
+
+  for (let i = 0; i < senha_valeu.length; i++) {
+    if (letrasMaiusculas.test(senha_valeu[i]))
+      auxMaiuscula++;
+    else if (letrasMinusculas.test(senha_valeu[i]))
+      auxMinuscula++;
+    else if (numeros.test(senha_valeu[i]))
+      auxNumero++;
+    else if (caracteresEspeciais.test(senha_valeu[i]))
+      auxEspecial++;
+  }
+  if (auxMaiuscula > 0) {
+    if (auxMinuscula > 0) {
+      if (auxNumero > 0) {
+        if (auxEspecial > 0) {
+          return true;
+        }
+      }
+    }
+  }
+  alert("Senhas devem conter entre 8-14 caracteres e ao menos uma letra, número e caractere especial.")
+  return false;
+}
+
+function mascararTelefone(telefone) {
+  let r = telefone.value.replace(/\D/g, "");
+  r = r.replace(/^0/, "");
+  if (r.length > 10) {
+    r = r.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
+  } else if (r.length > 5) {
+    r = r.replace(/^(\d\d)(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+  } else if (r.length > 2) {
+    r = r.replace(/^(\d\d)(\d{0,5})/, "($1) $2");
+  } else {
+    r = r.replace(/^(\d*)/, "($1");
+  }
+  return telefone.value = r;
+}
+
+function comparaSenhas(senha) {
+  if (senha.value == document.getElementById("senha").value) {
+    return true;
+  } else{
+    alert("As senhas não coincidem.");
+    return false;
+  }
+}
+
+function validarForm() {
+
+  const email = document.getElementById("email");
+  const uf = document.getElementById("uf");
+  const senha = document.getElementById("senha");
+  const comparaSenhas = document.getElementById("confirmar");
+
+  let validarForm = validarEmail(email) &&
+    validarUf(uf) &&
+    senhaValida(senha) &&
+    comparaSenhas(comparaSenhas);
+
+  return validarForm;
 }
