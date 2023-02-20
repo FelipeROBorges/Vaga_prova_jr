@@ -22,29 +22,23 @@ public class UsuarioLogin extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String pesquisa = request.getParameter("pesquisa");
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
-		boolean validador = false;
-		
-		
-
-		if (pesquisa == null) {
-			pesquisa = "";
-		}
-
-		List<Pessoa> pessoas = PessoaDAO.find(pesquisa);
 		String admin = "";
-		for(int i = 0; i < pessoas.size(); i ++ ) {
-			String pessoa_email = pessoas.get(i).getEmail();
-			String pessoa_senha = pessoas.get(i).getSenha();
-			if(pessoa_email.equals(email) && pessoa_senha.equals(senha)) {
-				admin = pessoas.get(i).getAdmin();
-				System.out.println("Validado com sucesso!");
+		boolean validador = false;
+	
+
+		List<Pessoa> pessoas = PessoaDAO.find(email);
+		if(pessoas.size() > 0) {
+			if(pessoas.get(0).getSenha().equals(senha)) {
 				validador = true;
-			}  
+				admin = pessoas.get(0).getAdmin();
+				System.out.println("Validado com sucesso!");
+			}
 		}
+
 		if(validador == true && admin != null && admin.equals("true")) {
+			pessoas = PessoaDAO.find("");
 			request.setAttribute("lista_pessoas", pessoas);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin.jsp");
 			requestDispatcher.forward(request, response);

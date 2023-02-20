@@ -23,16 +23,7 @@ public class UsuarioCadastro extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Pessoa pessoa = new Pessoa();
-		List<Pessoa> pessoas = PessoaDAO.find("");
-		String email = request.getParameter("email");
-		boolean validador = true;
-		for(int i = 0; i < pessoas.size(); i ++ ) {
-			String pessoa_email = pessoas.get(i).getEmail();
-			if(pessoa_email.equals(email)) {
-				System.out.println("Email já existe!");
-				validador = false;
-			}  
-		}
+		List<Pessoa> pessoas = PessoaDAO.find(request.getParameter("email"));
 
 		pessoa.setNome(request.getParameter("nome"));
 		pessoa.setSexo(request.getParameter("sexo"));
@@ -49,7 +40,7 @@ public class UsuarioCadastro extends HttpServlet {
 		pessoa.setData_cadastro(sqlDate);
 
 
-		if(validador == true) {
+		if(pessoas.size() > 0) {
 			PessoaDAO.create(pessoa);
 			response.sendRedirect("./sucesso.html");
 		} else {

@@ -10,7 +10,7 @@ import java.util.List;
 import db.PgConnection;
 import model.Pessoa;
 
-public class PessoaDAO implements CRUD {
+public class PessoaDAO {
 	
 	private static Connection connection = PgConnection.createConnection();
 	private static String sql;
@@ -36,10 +36,10 @@ public class PessoaDAO implements CRUD {
 			 
 			 preparedStatement.executeUpdate();
 			 
-			 System.out.println("--correct insert on database");
+			 System.out.println("Inserção correta na base de dados.");
 			  
 		 } catch(SQLException e) {
-			 System.out.println("--incorrect insert on database. " + e.getMessage());
+			 System.out.println("Inserção correta na base de dados. " + e.getMessage());
 		 }
 	}
 	
@@ -52,17 +52,16 @@ public class PessoaDAO implements CRUD {
 			preparedStatement.setInt(1, pessoaId);
 			preparedStatement.executeUpdate();
 			
-			System.out.println("--correct delete on usuario");
+			System.out.println("Deleção correta na base de dados.");
 			
 		} catch (SQLException e) {
-			System.out.println("--incorrect delete on pessoa. " + e.getMessage());
+			System.out.println("Deleção incorreta na base de dados. " + e.getMessage());
 		}
 	}
 	
 	public static List<Pessoa> find(String pesquisa){
 		
-		sql = String.format("SELECT * FROM prv_pessoa WHERE pes_email LIKE '%s%%' "
-				, pesquisa, pesquisa, pesquisa, pesquisa);
+		sql = String.format("SELECT * FROM prv_pessoa WHERE pes_email LIKE '%s%%' ", pesquisa);
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
 		
 		try {
@@ -90,11 +89,11 @@ public class PessoaDAO implements CRUD {
 				pessoas.add(pessoa);
 			}
 			
-			System.out.println("--correct find pessoas");
+			System.out.println("Procura correta na base de dados.");
 			return pessoas;
 			
 		} catch(SQLException e) {
-			System.out.println("--incorrect find pessoas. " + e.getMessage());
+			System.out.println("Procura incorreta na base de dados. " + e.getMessage());
 			return null;
 		}
 		
@@ -122,14 +121,15 @@ public class PessoaDAO implements CRUD {
 				pessoa.setBairro(resultSet.getString("pes_bairro"));
 				pessoa.setCidade(resultSet.getString("pes_cidade"));
 				pessoa.setUf(resultSet.getString("pes_uf"));
+				pessoa.setAdmin(resultSet.getString("pes_admin"));
 			}
 			
-			System.out.println("--correct find by pk pessoa");
+			System.out.println("Procura por pk correta na base de dados.");
 			return pessoa;
 			
 	} catch(SQLException e) {
 		
-			System.out.println("--incorrect find by pk pessoa. " + e.getMessage());
+			System.out.println("Procura por pk incorreta na base de dados. " + e.getMessage());
 			return null;
 		}
 	}
@@ -155,10 +155,10 @@ public class PessoaDAO implements CRUD {
 			 
 			 preparedStatement.executeUpdate();
 			 
-			 System.out.println("--correct update on database");
+			 System.out.println("Alteração correta na base de dados.");
 			 
 		 } catch(SQLException e) {
-			 System.out.println("--incorrect update on database. " + e.getMessage());
+			 System.out.println("Alteração incorreta na base de dados. " + e.getMessage());
 		 }
 	}
 }
