@@ -40,7 +40,7 @@ public class UsuarioCadastro extends HttpServlet {
 		pessoa.setData_cadastro(sqlDate);
 
 
-		if(pessoas.size() > 0) {
+		if(pessoas.size() == 0) {
 			PessoaDAO.create(pessoa);
 			response.sendRedirect("./sucesso.html");
 		} else {
